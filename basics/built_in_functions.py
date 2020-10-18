@@ -21,28 +21,25 @@
 # d = ['first', 'second', 'third', 'fourth']
 # print(set(enumerate(d, start=1)))
 
-# # zip: creates a zip object filled with tuples that combine 1-to-1 items 
-# # If the iterables have uneven length then zip stops when the shortest runs out
-# e = ['brennan', 'dale', 'nancy', 'robert', 'derek']
-# f = ['robert', 'derek', 'brennan', 'nancy', 'keith']
-# print(list(zip(e, f)))
+# zip: creates a zip object filled with tuples that combine 1-to-1 items 
+# If the iterables have uneven length then zip stops when the shortest runs out
+e = ['Atlanta', 'Houston', 'New York', 'Miami', 'Washington']
+f = ['Braves', 'Astros', 'Yankes', 'Marlins', 'Nationals']
+print(list(zip(e, f)))
 
-# Analyze iterables using len, max, min, sum, any, all
-g = [4, 2, 6, 3, 7, 5, 9, 1]
-h = [None, None, None]
+# # Analyze iterables using len, max, min, sum, any, all
+# g = [4, 2, 6, 3, 7, 5, 9, 1]
+# h = [None, None, None]
+# j = ['apple', 'banana', '']
+# k = []
 
-print(len(g))
-print(max(g, key=None))
-print(max(5, 3, 6, 7, 2, key=None))
-print(min(g, key=None))
-print(min(5, 3, 6, 7, 2, key=None))
-print(sum(g))
-print(any(h))
-print(all(g))
-
-
-# Work with sets using operators &, |, -, ^
-# | creates or the union() function combines the two sets
-# & returns the elements found in both sets
-# - returns the elements not found in the second set
-# ^ returns the elements found in exactly one set
+# print(len(g))
+# print(max(g, key=None))
+# print(max(5, 3, 6, 7, 2, key=None))
+# print(min(g, key=None))
+# print(min(5, 3, 6, 7, 2, key=None))
+# print(sum(g))
+# print(any(h)) # => False
+# print(all(g)) # => True
+# print(any(k)) # => False
+# print(all(j)) # => False
