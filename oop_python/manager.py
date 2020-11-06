@@ -1,4 +1,5 @@
-from  import Employee
+from employee import Employee
+# error when in different directory
 
 class Manager(Employee):
     def __init__(self, id):
