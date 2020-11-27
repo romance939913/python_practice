@@ -59,16 +59,77 @@
 # print(say_hi.__closure__[0].cell_contents) # <function say_hi at 0x10f1a9280>
 
 
+# # Syntactic Sugar
 # # You simply use @ to preface the name of a decorator function, such as message_decorator
 # def message_decorator(message_func):
-#     def message_wrapper(name):
-#         from_statement = 'This is a message from ' + name
-#         print(message_func() + from_statement)
+#     def message_wrapper(*args):
+#         name, author = args
+#         return f'{message_func(name)}! this is a message from {author}'
 #     return message_wrapper
 
 # @message_decorator  # Replaces the need for `say_hi = message_decorator(say_hi)`
-# def say_hi():
-#     return 'Hi! '
+# def say_hi(name):
+#     return f'Hi, {name}'
 
-# print(say_hi)   # <function message_decorator.<locals>.message_wrapper at 0x10d53c310>
+# print(say_hi)                   # <function message_decorator.<locals>.message_wrapper at 0x10d53c310>
+# print(say_hi('Jason', 'Ryan'))  # "Hi, Jason! This is a messagr from Ryan"
 
+
+# # The @property decorator references Python's built-in property() function to get a class attribute.
+# # It can be used to define the getter of a class property (also has associated setters and deleters)
+
+# class Ring:
+#     def __init__(self):
+#         self._nickname = "Shiny ring"
+
+#     @property
+#     def nickname(self):
+#         return self._nickname
+
+#     @nickname.setter
+#     def nickname(self, value):
+#         self._nickname = value
+
+#     @nickname.deleter
+#     def nickname(self):
+#         del self._nickname
+#         print('Oh no! The ring is gone!')
+
+# ring = Ring()
+# print(ring.nickname)                  # Shiny ring
+# ring.nickname = "Gollum's precious"
+# print(ring.nickname)                  # Gollum's precious
+# del ring.nickname                     # Oh no! The ring is gone!
+
+
+# # This is a helpful pattern that allows the same object to be globally accessed.
+# # The @singleton_decorator below nests the @wraps decorator from the Functools module. 
+# # The wraps decorator is used to preserve the class information, for example its name (__name__) and docstring (__doc__).
+
+# from functools import wraps
+
+# def singleton_decorator(class_definition):
+#     @wraps(class_definition)
+#     def class_wrapper():
+#         if not class_wrapper.instance:
+#             class_wrapper.instance = class_definition()
+#         return class_wrapper.instance
+#     class_wrapper.instance = None
+#     return class_wrapper
+ 
+# @singleton_decorator
+# class OneRingToRuleThemAll:
+#     """
+#     This is a class for The Ring from Lord of the Rings.
+#     """
+#     def __init__(self):
+#         self._nickname = "Gollum's precious"
+ 
+# first_ring = OneRingToRuleThemAll()
+# second_ring = OneRingToRuleThemAll()
+# third_ring = OneRingToRuleThemAll()
+# print(first_ring)   # <__main__.OneRingToRuleThemAll object at 0x1023981f0>
+# print(second_ring)  # <__main__.OneRingToRuleThemAll object at 0x1023981f0>
+# print(third_ring)   # <__main__.OneRingToRuleThemAll object at 0x1023981f0>
+# print(OneRingToRuleThemAll.__name__)  # OneRingToRuleThemAll
+# print(OneRingToRuleThemAll.__doc__)   # This is a class for The Ring from Lord of the Rings.
