@@ -1,4 +1,4 @@
-# Lists (homogeneous, mutable)
+# Lists (heterogeneous, mutable)
 # Very similar to the array data type in javascript. Typically used to store
 # a sequence of items that are all the same type
 empty_list = []

@@ -19,8 +19,8 @@ get invoked. There's a built-in decorator named property that you can apply to a
 method to make it seem like a readable property
 '''
 
-# (description) Class for a simple angry birds game
 class AngryBird:
+    # (description) Class for a simple angry birds game
     __slots__ = ['_x', '_y']
 
     def __init__(self):

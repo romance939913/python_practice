@@ -29,7 +29,7 @@
 # say_hi_to_ryan_from = say_hi_to('Ryan')
 # say_hi_to_ryan_from('Julia')             # Hi, Ryan! This is a message from Julia.
 # say_hi_to_ryan_from('Erik')              # Hi, Ryan! This is a message from Erik.
-# print(say_hi_to('Ryan')('Kodak'))
+# print(say_hi_to('Ryan')('Kodak'))        # Hi, Ryan! This is a message from Kodak.
 
 # print(say_hi_to_ryan_from.__closure__)   # (<cell at 0x1093cf1f0: str object at 0x1094035f0>,)
 # print(say_hi_to.__closure__)   # (<cell at 0x1093cf1f0: str object at 0x1094035f0>,)
@@ -59,6 +59,16 @@
 # print(say_hi.__closure__[0].cell_contents) # <function say_hi at 0x10f1a9280>
 
 
+def checker(message_func):
+    return f"{message_func()}, this is a message from brennan"
+
+@checker
+def say_hi(name):
+    return f"Hi, {name}"
+
+
+
+
 # # Syntactic Sugar
 # # You simply use @ to preface the name of a decorator function, such as message_decorator
 # def message_decorator(message_func):
@@ -72,7 +82,7 @@
 #     return f'Hi, {name}'
 
 # print(say_hi)                   # <function message_decorator.<locals>.message_wrapper at 0x10d53c310>
-# print(say_hi('Jason', 'Ryan'))  # "Hi, Jason! This is a messagr from Ryan"
+# print(say_hi('Jason')('Ryan'))  # "Hi, Jason! This is a messagr from Ryan"
 
 
 # # The @property decorator references Python's built-in property() function to get a class attribute.
