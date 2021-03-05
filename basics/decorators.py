@@ -12,7 +12,7 @@
 #     return say_something_func(name)
 
 # say_something_to_curtis(say_hi, 'Curtis')            # Hi, Curtis!
-# say_something_to_curtis(say_good_morning, 'Curtis')  # Good morning, Curtis!
+# say_something_to_curtis(say_good_morning, 'Kodak')  # Good morning, Kodak!
 
 # # You can use the built-in dir() function to observe any function object.
 # print(dir(say_something_to_curtis))
@@ -29,15 +29,16 @@
 # say_hi_to_ryan_from = say_hi_to('Ryan')
 # say_hi_to_ryan_from('Julia')             # Hi, Ryan! This is a message from Julia.
 # say_hi_to_ryan_from('Erik')              # Hi, Ryan! This is a message from Erik.
-# print(say_hi_to('Ryan')('Kodak'))        # Hi, Ryan! This is a message from Kodak.
+# say_hi_to('Ryan')('Kodak')               # Hi, Ryan! This is a message from Kodak.
 
-# print(say_hi_to_ryan_from.__closure__)   # (<cell at 0x1093cf1f0: str object at 0x1094035f0>,)
-# print(say_hi_to.__closure__)   # (<cell at 0x1093cf1f0: str object at 0x1094035f0>,)
+# print(say_hi_to_ryan_from.__closure__)                   # (<cell at 0x1093cf1f0: str object at 0x1094035f0>,)
+# print(say_hi_to.__closure__)                             # None
 # print(say_hi_to_ryan_from.__closure__[0].cell_contents)  # Ryan
 
 
-# # Decoration happens when you pass a function into a wrapper and assign the 
-# # wrapper's name to be the same as the function. 
+# Decoration happens when you pass a function into a wrapper and assign the 
+# wrapper's name to be the same as the function. 
+
 # def message_decorator(message_func):
 #     def message_wrapper(name):
 #         from_statement = 'This is a message from ' + name
@@ -59,30 +60,42 @@
 # print(say_hi.__closure__[0].cell_contents) # <function say_hi at 0x10f1a9280>
 
 
-def checker(message_func):
-    return f"{message_func()}, this is a message from brennan"
-
-@checker
-def say_hi(name):
-    return f"Hi, {name}"
-
-
-
-
 # # Syntactic Sugar
 # # You simply use @ to preface the name of a decorator function, such as message_decorator
+
 # def message_decorator(message_func):
 #     def message_wrapper(*args):
 #         name, author = args
-#         return f'{message_func(name)}! this is a message from {author}'
+#         return f'{message_func(name)}! This is a message from {author}.'
 #     return message_wrapper
 
-# @message_decorator  # Replaces the need for `say_hi = message_decorator(say_hi)`
+# @message_decorator
 # def say_hi(name):
 #     return f'Hi, {name}'
 
-# print(say_hi)                   # <function message_decorator.<locals>.message_wrapper at 0x10d53c310>
-# print(say_hi('Jason')('Ryan'))  # "Hi, Jason! This is a messagr from Ryan"
+# @message_decorator
+# def say_bye(name):
+#     return f'Bye, {name}'
+
+# print(say_hi('Julia', 'Ryan'))  # Hi, Julia! This is a message from Ryan.
+# print(say_bye('Kodak', 'Gucci'))   # "Bye, Kodak!"
+
+
+# My simple example
+def make_loud_decorator(dec_func):
+    def make_loud():
+        return f'{dec_func()}!!!'
+    return make_loud
+
+@make_loud_decorator
+def say_hi():
+    return 'Hi'
+
+@make_loud_decorator
+def say_bye():
+    return 'Bye'
+
+print(say_hi())
 
 
 # # The @property decorator references Python's built-in property() function to get a class attribute.
