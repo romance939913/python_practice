@@ -10,6 +10,10 @@ class Manager(Employee):
         for employee in employees:
             self.employees.append(employee)
 
+    def boop(self):
+        print("Manager#boop")
+        return super().boop() # => Employee#boop (can access both)
+
     def __repr__(self):
         return f"<Manager ({self.id}, {self.employees})>"
 
@@ -18,6 +22,7 @@ employee2 = Employee(234)
 manager1 = Manager(345)
 manager1.add_direct_report(employee1, employee2)
 print(manager1) # => <Manager (345, [<Employee (123)>, <Employee (234)>])>
+print(manager1.boop())
 
 
 # class Parent:

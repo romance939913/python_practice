@@ -14,5 +14,8 @@ class Employee:
     def __init__(self, id):
         self.id = id
 
+    def boop(self):
+        return "Employee#boop"
+
     def __repr__(self):
         return f"<Employee ({self.id})>"
