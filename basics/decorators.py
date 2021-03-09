@@ -20,6 +20,7 @@
 
 # # Let's write a new say_hi_to function with a __closure__ say_from
 # # The __closure__ tuple holds a cell object for each of the function's enclosed variables.
+
 # def say_hi_to(name):
 #     def say_from(author):
 #         print(f'Hi, {name}!')
