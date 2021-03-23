@@ -1,54 +1,93 @@
-import pdb
-
 class Node:
     def __init__(self, value):
         self._value = value
-        self._parent = None
         self._children = list()
+        self._parent = None
 
+    
     @property
     def value(self):
         return self._value
 
+    
     @property
     def children(self):
         return self._children
 
+
     @property
     def parent(self):
         return self._parent
+
 
     @parent.setter
     def parent(self, node):
         if self.parent:
             self.parent.remove_child(self)
         self._parent = node
-        node.children.append(self)
+        if node:
+            node.add_child(self)
+
 
     def add_child(self, node):
-        if node.parent == self or node in self.children:
-            return None
-        else:
-            node.parent = self
+        if not node in self.children:
+            self.children.append(node)
+        
 
     def remove_child(self, node):
-        self.children.remove(node)
+        if node in self.children:
+            self.children.remove(node)
+
+
+    def depth_search(self, value):
+        if self.value == value:
+            return self
+        elif not self:
+            return None
+        for child in self.children:
+            node = child.depth_search(value)
+            if node:
+                return node
+        return None
+
+
+    def breadth_search(self, value):
+        queue = [self]
+        while queue:
+            node = queue[0]
+            queue = queue[1:]
+            if node.value == value:
+                return node
+            else:
+                for child in node.children:
+                    queue.append(child)
+        return None
+
 
     def __repr__(self):
-        val = None
+        parent_val = None
         if self.parent:
-            val = self.parent.value
-        return f"<Node {self.value}, children:{len(self.children)}, parent:{val}>"
+            parent_val = self.parent.value
+        return f"<Node {self.value}, children:{len(self.children)}, parent:{parent_val}>"
 
-    
-bre = Node('brennan')
-der = Node('derek')
-ter = Node('terri')
-kei = Node('keith')
 
-# pdb.set_trace()
-ter.add_child(der)
-ter.add_child(bre)
+# node1 = Node("node1")
+# node2 = Node("node2")
+# node3 = Node("node3")
+# node4 = Node("node4")
+# node5 = Node("node5")
+# node6 = Node("node6")
+# node7 = Node("node7")
 
-print(bre)
-print(ter)
+# node2.parent = node1
+# node3.parent = node1
+# node4.parent = node2
+# node5.parent = node2
+# node6.parent = node3
+# node7.parent = node3
+
+# node5.parent = node2
+
+# print(node1.children)
+# print(node2.children)
+# print(node5)
