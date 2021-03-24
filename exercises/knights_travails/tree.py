@@ -1,4 +1,5 @@
 class Node:
+    
     def __init__(self, value):
         self._value = value
         self._children = list()
@@ -85,9 +86,3 @@ class Node:
 # node5.parent = node2
 # node6.parent = node3
 # node7.parent = node3
-
-# node5.parent = node2
-
-# print(node1.children)
-# print(node2.children)
-# print(node5)
