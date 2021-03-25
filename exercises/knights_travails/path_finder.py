@@ -12,6 +12,10 @@ class KnightPathFinder:
     def considered_positions(self):
         return self._considered_positions
 
+    @considered_positions.setter
+    def considered_positions(self, new_positions):
+        self._considered_positions = new_positions
+
 
     def valid_moves(self, pos):
         moves = [           
@@ -35,14 +39,17 @@ class KnightPathFinder:
 
 
     def new_move_positions(self, pos):
-        moves = self.valid_moves(pos)
-        return set([ move 
-                    for move in moves 
-                    if move not in self.considered_positions
-        ])
+        all_moves = self.valid_moves(pos)
+        moves = set([ move 
+                    for move in all_moves 
+                    if move not in self.considered_positions])
+        self.considered_positions = moves | self.considered_positions
+        return moves
         
 
 
-    
 b = KnightPathFinder((1, 2))
+b.considered_positions.add((2, 3))
+b.considered_positions.add((3, 2))
 print(b.new_move_positions((4, 4)))
+print(b.considered_positions)
