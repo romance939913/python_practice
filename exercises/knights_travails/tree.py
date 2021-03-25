@@ -5,21 +5,17 @@ class Node:
         self._children = list()
         self._parent = None
 
-    
     @property
     def value(self):
         return self._value
-
     
     @property
     def children(self):
         return self._children
 
-
     @property
     def parent(self):
         return self._parent
-
 
     @parent.setter
     def parent(self, node):

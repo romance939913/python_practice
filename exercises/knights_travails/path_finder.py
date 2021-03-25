@@ -4,9 +4,12 @@ import pdb
 class KnightPathFinder:
 
     def __init__(self, coord):
-        self._root = tree.Node(coord)
+        self._node = tree.Node(coord)
         self._considered_positions = { coord }
 
+    @property
+    def node(self):
+        return self._node
 
     @property
     def considered_positions(self):
@@ -33,23 +36,34 @@ class KnightPathFinder:
 
 
     def helper_valid(self, pos):
-        if pos[0] > 0 and pos[0] < 8 and pos[1] > 0 and pos[1] < 7:
+        if pos[0] >= 0 and pos[0] < 8 and pos[1] >= 0 and pos[1] < 8:
             return True
         return False
 
 
     def new_move_positions(self, pos):
         all_moves = self.valid_moves(pos)
-        moves = set([ move 
+        moves = set([ tree.Node(move)
                     for move in all_moves 
                     if move not in self.considered_positions])
-        self.considered_positions = moves | self.considered_positions
+        self.considered_positions = set(all_moves) | self.considered_positions
         return moves
         
 
+    def build_move_tree(self):
+        queue = [self.node]
+        while queue:
+            ele = queue[0]
+            queue = queue[1:]
+            moves = self.new_move_positions(ele.value)
+            for move_node in moves:
+                queue.append(move_node)
+                ele.children.append(move_node)
+        return None           
+            
+
 
 b = KnightPathFinder((1, 2))
-b.considered_positions.add((2, 3))
-b.considered_positions.add((3, 2))
-print(b.new_move_positions((4, 4)))
-print(b.considered_positions)
+pdb.set_trace()
+print(b.node)
+print(b.build_move_tree())
