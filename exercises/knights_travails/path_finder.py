@@ -31,7 +31,7 @@ class KnightPathFinder:
             (pos[0] - 2, pos[1] - 1),
             (pos[0] - 2, pos[1] + 1)
         ]
-        result = [pos for pos in moves if self.helper_valid(pos)]
+        result = { pos for pos in moves if self.helper_valid(pos) }
         return result
 
 
@@ -46,7 +46,7 @@ class KnightPathFinder:
         moves = set([ tree.Node(move)
                     for move in all_moves 
                     if move not in self.considered_positions])
-        self.considered_positions = set(all_moves) | self.considered_positions
+        self.considered_positions = all_moves | self.considered_positions
         return moves
         
 
@@ -58,12 +58,35 @@ class KnightPathFinder:
             moves = self.new_move_positions(ele.value)
             for move_node in moves:
                 queue.append(move_node)
-                ele.children.append(move_node)
-        return None           
+                move_node.parent = ele       
             
 
+    def find_path(self, end_position):
+        node = self.node.depth_search(end_position)
+        if node:
+            result = self.trace_back_path(node)
+            return result
+        return 'invalid position'
 
-b = KnightPathFinder((1, 2))
-pdb.set_trace()
-print(b.node)
-print(b.build_move_tree())
+
+    def trace_back_path(self, node):
+        path = []
+        while node:
+            path.append(node.value)
+            node = node.parent
+        path.reverse()
+        return path
+
+
+one = KnightPathFinder((1, 2))
+one.build_move_tree()
+print(one.find_path((5, 5)))
+print(one.find_path((0, 7)))
+print(one.find_path((7, 0)))
+print(one.find_path((6, 0)))
+
+two = KnightPathFinder((6, 0))
+two.build_move_tree()
+print(two.find_path((5, 6)))
+print(two.find_path((5, 4)))
+print(two.find_path((0, 7)))

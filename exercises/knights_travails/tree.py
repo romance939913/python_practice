@@ -68,17 +68,3 @@ class Node:
         return f"<Node {self.value}, children:{len(self.children)}, parent:{parent_val}>"
 
 
-# node1 = Node("node1")
-# node2 = Node("node2")
-# node3 = Node("node3")
-# node4 = Node("node4")
-# node5 = Node("node5")
-# node6 = Node("node6")
-# node7 = Node("node7")
-
-# node2.parent = node1
-# node3.parent = node1
-# node4.parent = node2
-# node5.parent = node2
-# node6.parent = node3
-# node7.parent = node3
