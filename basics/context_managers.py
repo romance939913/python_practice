@@ -8,8 +8,8 @@
 #       f.close()
 
 # # The above code can be changed to read like this with the 'with' keyword
-# allows you to not have to write try/finally blocks everywhere you want to access some 
-# resource whose connection needs to be closed, connections like those to files and databases.
+# # allows you to not have to write try/finally blocks everywhere you want to access some 
+# # resource whose connection needs to be closed, connections like those to files and databases.
 # with open('some_file.txt') as f:
 #     pass
 #     # do stuff with f like read the file
