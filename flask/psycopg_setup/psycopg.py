@@ -35,49 +35,50 @@
 # # (1995, 'Mitsubishi', 'Eclipse', 2),
 # # (1994, 'Acura', 'Integra', 3);
 
-# import psycopg2
+import psycopg2
 
-# CONNECTION_PARAMETERS = {
-#     'dbname': 'psycopg_test_db',
-#     'user': 'psycopg_test_user',
-#     'password': 'password',
-# }
+CONNECTION_PARAMETERS = {
+    'dbname': 'psycopg_test_db',
+    # 'user': 'psycopg_test_user',
+    # 'password': 'password',
+    'port': '5433'
+}
 
-# with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
-#     print(conn.get_dsn_parameters())
-#     # Output: {'user': 'psycopg_test_user', 'dbname': 'psycopg_test_db', ...}
+with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
+    print(conn.get_dsn_parameters())
+    # Output: {'user': 'psycopg_test_user', 'dbname': 'psycopg_test_db', ...}
 
-# # cursor objects are iterable
-# with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
-#     with conn.cursor() as curs:
-#         curs.execute('SELECT * FROM cars;')
-#         cars = curs.fetchall()
-#         for car in cars:
-#             print(car) # (1993, 'Mazda', 'Rx7')
+# cursor objects are iterable
+with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
+    with conn.cursor() as curs:
+        curs.execute('SELECT * FROM cars;')
+        cars = curs.fetchall()
+        for car in cars:
+            print(car) # (1993, 'Mazda', 'Rx7')
 
 
-# def print_all_cars():
-#     with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
-#         with conn.cursor() as curs:
-#             curs.execute('SELECT manu_year, make, model, owner_id FROM cars;')
-#             cars = curs.fetchall()
-#             for car in cars:
-#                 print(car)  
+def print_all_cars():
+    with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
+        with conn.cursor() as curs:
+            curs.execute('SELECT manu_year, make, model, owner_id FROM cars;')
+            cars = curs.fetchall()
+            for car in cars:
+                print(car)  
 
-# print_all_cars()
+print_all_cars()
 
-# # Parameterizing 
-# # Fetch and return all cars in the cars table :param owner_id: <int> the id of 
-# # the owner who's cars to return :return: <list> the results of the query
-# def get_owners_cars(owner_id):
-#     with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
-#         with conn.cursor() as curs:
-#             curs.execute("""
-#                          SELECT manu_year, make, model FROM cars
-#                          WHERE owner_id = %(owner_id)s
-#                          """,
-#                          {'owner_id': owner_id})
-#             results = curs.fetchall()
-#             return results
+# Parameterizing 
+# Fetch and return all cars in the cars table :param owner_id: <int> the id of 
+# the owner who's cars to return :return: <list> the results of the query
+def get_owners_cars(owner_id):
+    with psycopg2.connect(**CONNECTION_PARAMETERS) as conn:
+        with conn.cursor() as curs:
+            curs.execute("""
+                         SELECT manu_year, make, model FROM cars
+                         WHERE owner_id = %(owner_id)s
+                         """,
+                         {'owner_id': owner_id})
+            results = curs.fetchall()
+            return results
 
-# print(get_owners_cars(1)) # [(1993, 'Mazda', 'Rx7')]
+print(get_owners_cars(1)) # [(1993, 'Mazda', 'Rx7')]
